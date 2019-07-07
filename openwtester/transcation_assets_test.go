@@ -128,11 +128,11 @@ func TestTransfer(t *testing.T) {
 	//to := ""
 
 	contract := openwallet.SmartContract{
-		Address:  "zdtio.token",
-		Symbol:   "ZDT",
-		Name:     "ZDT",
-		Token:    "ZDT",
-		Decimals: 4,
+		Address:  "tonydchan123",
+		Symbol:   "ZING",
+		Name:     "ZING",
+		Token:    "ZING",
+		Decimals: 8,
 	}
 
 	testGetAssetsAccountBalance(tm, walletID, accountID)
@@ -168,11 +168,11 @@ func TestSummary(t *testing.T) {
 	summaryAddress := "zdttesterabc"
 
 	contract := openwallet.SmartContract{
-		Address:  "zdtio.token",
-		Symbol:   "ZDT",
-		Name:     "ZDT",
-		Token:    "ZDT",
-		Decimals: 4,
+		Address:  "tonydchan123",
+		Symbol:   "ZING",
+		Name:     "ZING",
+		Token:    "ZING",
+		Decimals: 8,
 	}
 
 	testGetAssetsAccountBalance(tm, walletID, accountID)

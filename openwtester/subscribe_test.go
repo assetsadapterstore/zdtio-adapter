@@ -62,6 +62,7 @@ func TestSubscribeAddress_ZDT(t *testing.T) {
 			"zgbnpn3aybgl": "sender",
 			"zdtpokedice1": "receiver",
 			"zdttesterbob": "receiver",
+			"zdttestercat": "receiver",
 		}
 	)
 

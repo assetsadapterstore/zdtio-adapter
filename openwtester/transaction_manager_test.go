@@ -124,11 +124,11 @@ func TestWalletManager_GetAssetsAccountTokenBalance(t *testing.T) {
 	accountID := "AwxbDgWv6d8DUFk36SNWGw3y6GE9RbZtVGjAsQqP3u5y"
 
 	contract := openwallet.SmartContract{
-		Address:  "zdtio.token",
-		Symbol:   "ZDT",
-		Name:     "ZDT",
-		Token:    "ZDT",
-		Decimals: 4,
+		Address:  "tonydchan123",
+		Symbol:   "ZING",
+		Name:     "ZING",
+		Token:    "ZING",
+		Decimals: 8,
 	}
 
 	balance, err := tm.GetAssetsAccountTokenBalance(testApp, walletID, accountID, contract)
