@@ -73,10 +73,10 @@ func TestWalletManager_GetAssetsAccountTokenBalance(t *testing.T) {
 	accountID := "6NywxLEwyU7oeaei2UknUNVWyuAwJzDDZMPAgZ4ed2J4"
 
 	contract := openwallet.SmartContract{
-		Address:  "tonydchan123",
+		Address:  "tonydchan123:ZING",
+		Protocol: "multiple-token",
 		Symbol:   "ZING",
 		Name:     "ZING",
-		Token:    "ZING",
 		Decimals: 8,
 	}
 

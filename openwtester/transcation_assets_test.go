@@ -128,10 +128,10 @@ func TestTransfer(t *testing.T) {
 	//to := ""
 
 	contract := openwallet.SmartContract{
-		Address:  "tonydchan123",
+		Address:  "tonydchan123:ZING",
+		Protocol: "multiple-token",
 		Symbol:   "ZING",
 		Name:     "ZING",
-		Token:    "ZING",
 		Decimals: 8,
 	}
 
