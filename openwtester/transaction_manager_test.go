@@ -16,6 +16,9 @@
 package openwtester
 
 import (
+	"github.com/astaxie/beego/config"
+	"github.com/blocktree/openwallet/openw"
+	"path/filepath"
 	"testing"
 
 	"github.com/blocktree/openwallet/log"
@@ -69,8 +72,8 @@ func TestWalletManager_GetAssetsAccountBalance(t *testing.T) {
 
 func TestWalletManager_GetAssetsAccountTokenBalance(t *testing.T) {
 	tm := testInitWalletManager()
-	walletID := "W59hhWFQ4NWt2WB1FPt8XJmi5q88fH4tyR"
-	accountID := "6NywxLEwyU7oeaei2UknUNVWyuAwJzDDZMPAgZ4ed2J4"
+	walletID := "WD1yNAJEhY61UGo4SdWuGuLyF5S1VV7CWn"
+	accountID := "EYu9jxzw869PLo8vRwkte7TXLyrHskp4eVcyc5Vvs5yv"
 
 	contract := openwallet.SmartContract{
 		Address:  "tonydchan123:ZING",
@@ -99,4 +102,50 @@ func TestWalletManager_GetEstimateFeeRate(t *testing.T) {
 		return
 	}
 	log.Std.Info("feeRate: %s %s/%s", feeRate, coin.Symbol, unit)
+}
+
+
+func TestGetAccountTokenBalance(t *testing.T) {
+	symbol := "ZDT"
+	assetsMgr, err := openw.GetAssetsAdapter(symbol)
+	if err != nil {
+		log.Error(symbol, "is not support")
+		return
+	}
+	//读取配置
+	absFile := filepath.Join(configFilePath, symbol+".ini")
+
+	c, err := config.NewConfig("ini", absFile)
+	if err != nil {
+		return
+	}
+	assetsMgr.LoadAssetsConfig(c)
+	sm := assetsMgr.GetSmartContractDecoder()
+
+	contract := openwallet.SmartContract{
+		Address:  "tonydchan123:ZING",
+		Protocol: "",
+		Symbol:   "ZDT",
+		Name:     "ZING",
+		Decimals: 8,
+	}
+
+	contractID := openwallet.GenContractID(contract.Symbol, contract.Address)
+	log.Infof("contractID = %s", contractID)
+	log.Infof("BalanceModelType = %v", assetsMgr.BalanceModelType())
+
+	addrs := []string{
+		"zdtjiahua222",
+	}
+
+	balances, err := sm.GetTokenBalanceByAddress(contract, addrs...)
+	if err != nil {
+		log.Errorf(err.Error())
+		return
+	}
+	for _, b := range balances {
+		log.Infof("balance[%s] = %s", b.Balance.Address, b.Balance.Balance)
+		log.Infof("UnconfirmBalance[%s] = %s", b.Balance.Address, b.Balance.UnconfirmBalance)
+		log.Infof("ConfirmBalance[%s] = %s", b.Balance.Address, b.Balance.ConfirmBalance)
+	}
 }

@@ -12,6 +12,8 @@ import (
 var (
 	testApp        = "assets-adapter"
 	configFilePath = filepath.Join("conf")
+	dbFilePath = filepath.Join("data", "db")
+	dbFileName = "blockchain-zdt.db"
 )
 
 func testInitWalletManager() *openw.WalletManager {
@@ -75,8 +77,8 @@ func TestWalletManager_CreateAssetsAccount(t *testing.T) {
 
 	tm := testInitWalletManager()
 
-	walletID := "WARk4eT34PSYuvqeRsw6W1Nrvu7PESCtrt"
-	account := &openwallet.AssetsAccount{Alias: "zdttestercat", WalletID: walletID, Required: 1, Symbol: "ZDT", IsTrust: true}
+	walletID := "WD1yNAJEhY61UGo4SdWuGuLyF5S1VV7CWn"
+	account := &openwallet.AssetsAccount{Alias: "zdtjiahua222", WalletID: walletID, Required: 1, Symbol: "ZDT", IsTrust: true}
 	account, address, err := tm.CreateAssetsAccount(testApp, walletID, "12345678", account, nil)
 	if err != nil {
 		log.Error(err)

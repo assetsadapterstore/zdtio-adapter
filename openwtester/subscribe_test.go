@@ -16,6 +16,7 @@
 package openwtester
 
 import (
+	"github.com/blocktree/openwallet/common/file"
 	"path/filepath"
 	"testing"
 
@@ -60,7 +61,7 @@ func TestSubscribeAddress_ZDT(t *testing.T) {
 		symbol     = "ZDT"
 		addrs      = map[string]string{
 			"zgbnpn3aybgl": "sender",
-			"zdtpokedice1": "receiver",
+			"zdttesterbnb": "receiver",
 			"zdttesterbob": "receiver",
 			"zdttestercat": "receiver",
 		}
@@ -98,7 +99,18 @@ func TestSubscribeAddress_ZDT(t *testing.T) {
 
 	//log.Debug("already got scanner:", assetsMgr)
 	scanner := assetsMgr.GetBlockScanner()
-	scanner.SetRescanBlockHeight(61824831)
+	if scanner.SupportBlockchainDAI() {
+		file.MkdirAll(dbFilePath)
+		dai, err := openwallet.NewBlockchainLocal(filepath.Join(dbFilePath, dbFileName), false)
+		if err != nil {
+			log.Error("NewBlockchainLocal err: %v", err)
+			return
+		}
+
+		scanner.SetBlockchainDAI(dai)
+	}
+
+	scanner.SetRescanBlockHeight(4990263)
 
 	if scanner == nil {
 		log.Error(symbol, "is not support block scan")
@@ -109,6 +121,14 @@ func TestSubscribeAddress_ZDT(t *testing.T) {
 
 	sub := subscriberSingle{}
 	scanner.AddObserver(&sub)
+
+	header, err := scanner.GetCurrentBlockHeader()
+	if err != nil {
+		t.Errorf("GetCurrentBlockHeader failed: %v", err)
+		return
+	}
+
+	log.Infof("GetCurrentBlockHeader = %+v", header)
 
 	scanner.Run()
 
