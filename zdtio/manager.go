@@ -19,6 +19,7 @@ import (
 	"github.com/blocktree/eosio-adapter/eosio"
 	"github.com/blocktree/openwallet/log"
 	"github.com/blocktree/openwallet/openwallet"
+	"github.com/eoscanada/eos-go/ecc"
 )
 
 const (
@@ -35,5 +36,8 @@ func NewWalletManager(cacheManager openwallet.ICacheManager) *WalletManager {
 	wm.Config = eosio.NewConfig(Symbol)
 	wm.Decoder = NewAddressDecoder(&wm)
 	wm.Log = log.NewOWLogger(wm.Symbol())
+
+	ecc.PublicKeyPrefixs = []string{"EOS", "ZDT"}
+
 	return &wm
 }
