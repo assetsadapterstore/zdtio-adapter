@@ -35,6 +35,7 @@ func NewWalletManager(cacheManager openwallet.ICacheManager) *WalletManager {
 	wm.WalletManager = eosio.NewWalletManager(cacheManager)
 	wm.Config = eosio.NewConfig(Symbol)
 	wm.Decoder = NewAddressDecoder(&wm)
+	wm.DecoderV2 = NewAddressDecoder(&wm)
 	wm.Log = log.NewOWLogger(wm.Symbol())
 
 	ecc.PublicKeyPrefixs = []string{"EOS", "ZDT"}
